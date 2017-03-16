@@ -9,14 +9,16 @@ Requirements
 
 Requires boto.
 
-Please configure your ~/.aws/credentials with your AWS key id and secret. Use the aws_profile variable to choose the profile you want to use. The credentials need to have access to configure Route53 for the account. 
+Please configure your ~/.aws/credentials with your AWS key id and secret. Use the aws_profile variable to choose the profile you want to use. The credentials need to have access to configure Route53 for the account.
 
 
-...
+```YAML
+
 [nemesol-consulting-aws-dns]
 aws_access_key_id = XXXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXX
-...
+
+```
 
 Role Variables
 --------------
@@ -39,28 +41,27 @@ Example Playbook
 ### Simple run without inventory 
 
 
-...
+```YAML
 
 - hosts: localhost
   - roles: 
        - role { role: NemesolConsulting.aws-route53-office365, aws_profile: nemesol-consulting-aws-dns, route53_domain: nemesol.com }
 
-...
-
+`
 ### More fun with pseudo-host per domain in inventory
 
-...
+```YAML
 
 - hosts: nemesol-email-domains
   - roles: 
 	- NemesolConsulting.aws-route53-office365
 
-...
+```
  
 # Production inventory file then includes:
 
-...
- 
+```YAML
+
 nemesol-com-route53 ansible_host=localhost ansible_connection=local
 nemesol-fi-route53 ansible_host=localhost ansible_connection=local
 nemesol-net-route53 ansible_host=localhost ansible_connection=local
@@ -70,16 +71,15 @@ nemesol-com-route53
 nemesol-fi-route53
 nemesol-net-route53
 
-...
-
+```
 # And finally we define the params in hosts_var files
 
 
 host_vars/nemesol-fi-route53
-...
+```YAML
 route53_domain: nemesol.com
 aws_profile: nemesol-consulting-aws-dns
-...
+```
 
 License
 -------
