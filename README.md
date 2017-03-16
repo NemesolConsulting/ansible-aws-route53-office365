@@ -15,7 +15,7 @@ Please configure your ~/.aws/credentials with your AWS key id and secret. Use th
 ...
 [nemesol-consulting-aws-dns]
 aws_access_key_id = XXXXXXXXXXXXXXXXXX
-aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXX
 ...
 
 Role Variables
@@ -23,7 +23,7 @@ Role Variables
 
 Required: 
 aws_profile - the name of the profile as defined in ~/.aws/credentials
-route53_domain - the root domain to configure for Office365 use. 
+route53_domain - the root domain to configure for Office365 use.
 
 Optional: 
 SPF_APPEND - any additional email sending servers needed for the SPF record in this domain. 
