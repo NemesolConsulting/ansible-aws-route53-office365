@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  - roles: 
+       - role { role: NemesolConsulting.aws-route53-office365, aws_profile: nemesol-consulting-aws-dns, route53_domain: nemesol.com }
+

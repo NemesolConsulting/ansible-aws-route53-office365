@@ -1,0 +1,107 @@
+# Add host_vars or group vars with the variables
+# route53_domain, aws_profile
+# and add ~/.aws/credentials file with the profile used.
+# See defaults for variables to use when importing role. 
+
+- route53_zone: zone="{{route53_domain}}" state=present comment="{{route53_domain}} zone" profile="{{aws_profile}}"
+
+- route53: 
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "{{route53_domain}}"
+      type: "MX"
+      value: "0 {{ route53_domain | regex_replace('^(?P<domain>.+)[.](?P<ext>.+)$', '\\g<domain>-\\g<ext>') }}.mail.protection.outlook.com"
+
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "{{route53_domain}}"
+      type: "TXT"
+      value: '"v=spf1 include:spf.protection.outlook.com {{SPF_APPEND}} -all"'
+      ttl: "3600"
+  
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "_sip._tls.{{route53_domain}}"
+      type: "SRV"
+      value: "100 1 443 sipdir.online.lync.com."
+      ttl: "300"
+
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "_sipfederationtls._tcp.{{route53_domain}}"
+      type: "SRV"
+      value: "100 1 5061 sipfed.online.lync.com."
+      ttl: "300"
+
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "autodiscover.{{route53_domain}}"
+      type: "CNAME"
+      value: "autodiscover.outlook.com"
+      ttl: "3600"
+      
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "sip.{{route53_domain}}"
+      type: "CNAME"
+      value: "sipdir.online.lync.com"
+      ttl: "3600"
+
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "lyncdiscover.{{route53_domain}}"
+      type: "CNAME"
+      value: "webdir.online.lync.com"
+      ttl: "3600"
+
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "msoid.{{route53_domain}}"
+      type: "CNAME"
+      value: "clientconfig.microsoftonline-p.net"
+      ttl: "3600"
+      
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "enterpriseregistration.{{route53_domain}}"
+      type: "CNAME"
+      value: "enterpriseregistration.windows.net"
+      ttl: "3600"
+      
+
+- route53:
+      profile: "{{aws_profile}}"
+      command: "create"
+      overwrite: "yes"
+      zone: "{{route53_domain}}"
+      record: "enterpriseenrollment.{{route53_domain}}"
+      type: "CNAME"
+      value: "enterpriseenrollment.manage.microsoft.com"
+      ttl: "3600"
+ 
