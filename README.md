@@ -46,8 +46,8 @@ Example Playbook
 - hosts: localhost
   - roles: 
        - role { role: NemesolConsulting.aws-route53-office365, aws_profile: nemesol-consulting-aws-dns, route53_domain: nemesol.com }
+```
 
-`
 ### More fun with pseudo-host per domain in inventory
 
 ```YAML
@@ -58,7 +58,7 @@ Example Playbook
 
 ```
  
-# Production inventory file then includes:
+#### Production inventory file then includes:
 
 ```YAML
 
@@ -72,14 +72,20 @@ nemesol-fi-route53
 nemesol-net-route53
 
 ```
-# And finally we define the params in hosts_var files
+#### And finally we define the params in hosts_var files
 
 
 host_vars/nemesol-fi-route53
 ```YAML
+route53_domain: nemesol.fi
+aws_profile: nemesol-consulting-aws-dns
+```
+host_vars/nemesol-com-route53
+```YAML
 route53_domain: nemesol.com
 aws_profile: nemesol-consulting-aws-dns
 ```
+and so on. 
 
 License
 -------
