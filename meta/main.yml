@@ -11,7 +11,7 @@ galaxy_info:
 
   platforms:
   - name: GenericUNIX
-  - versions: 
+    versions: 
     - any
 
   galaxy_tags: 
